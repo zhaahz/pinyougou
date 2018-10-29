@@ -11,10 +11,10 @@ import java.util.List;
 @RestController
 public class BrandController {
 
-	@Autowired
+	@Autowired(required = false)
 	private BrandService brandService;
 
-	@RequestMapping("brand/findAll")
+	@RequestMapping("/brand/findAll")
 	public List<Brand> findAll(){
 		System.out.println("改变");
 		return brandService.findAll();
