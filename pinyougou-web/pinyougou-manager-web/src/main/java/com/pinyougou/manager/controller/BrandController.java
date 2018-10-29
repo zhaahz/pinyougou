@@ -16,6 +16,7 @@ public class BrandController {
 
 	@RequestMapping("brand/findAll")
 	public List<Brand> findAll(){
+		System.out.println("改变");
 		return brandService.findAll();
 	}
 
