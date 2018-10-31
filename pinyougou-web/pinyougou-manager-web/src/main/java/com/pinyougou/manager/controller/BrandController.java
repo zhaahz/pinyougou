@@ -15,6 +15,13 @@ public class BrandController {
 	@Reference(timeout = 10000)
 	private BrandService brandService;
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 
+	 * @Date 15:08 2018/10/31
+	 * @Param []
+	 * @return 
+	 **/
 	@GetMapping("/findAll")
 	public List<Brand> findAll(){
 

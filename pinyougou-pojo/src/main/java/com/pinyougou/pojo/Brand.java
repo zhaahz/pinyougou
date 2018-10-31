@@ -5,11 +5,19 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
+/**
+ * @Author ZhaJing
+ * @Description //品牌实体类
+ * @Date 15:08 2018/10/31
+ * @version 1.0
+ *
+ **/
 @Data
 @Table(name = "tb_brand")
 public class Brand implements Serializable{
 
-	    //主键id
+	    //主键
 	    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="id")
 		private Long id;
@@ -25,4 +33,6 @@ public class Brand implements Serializable{
 
         //10/29
 	    //上面是JPA注解,是建立实体类与数据库表之间的映射关系
+
+
 }
