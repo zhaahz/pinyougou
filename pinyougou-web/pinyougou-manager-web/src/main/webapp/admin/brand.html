@@ -27,7 +27,11 @@
             };
 
             $scope.saveOrUpdate=function () {
-                $http.post("/brand/save",$scope.entity).then(function (response) {
+                var url = "/save";
+                if($scope.entity.id){
+                    url = "/update";
+                }
+                $http.post("/brand"+url,$scope.entity).then(function (response) {
 
                     if(response.data){
                         $scope.findAll();
@@ -35,6 +39,18 @@
                         alert("添加失败,请重新添加!")
                     }
                 })
+            };
+            
+            //为修改按钮绑定点击事件
+            $scope.show=function (entity) {
+                //这样写会因为双向绑定出问题
+                //$scope.entity = entity;
+
+                //把entity转化成json字符串
+                var jsonStr = JSON.stringify(entity);
+                //把json转化json对象
+                $scope.entity = JSON.parse(jsonStr);
+
             }
         })
 
@@ -56,8 +72,8 @@
 			<!--工具栏-->
 			<div class="pull-left">
 				<div class="form-group form-inline">
-					<div class="btn-group">
-						<button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={} ><i class="fa fa-file-o"></i> 新建</button>
+					<!--<div class="btn-group">                                                                           10/31  笔记  添加完成后应重置entity值-->
+						<button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 新建</button>
 						<button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
 						<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 					</div>
@@ -102,7 +118,7 @@
 						<td>{{entity.name}}</td>
 						<td>{{entity.firstChar}}</td>
 						<td class="text-center">                                           
-							<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
+							<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  ng-click="show(entity)">修改</button>                                           
 						</td>
 					</tr>
 					<!--<tr>-->

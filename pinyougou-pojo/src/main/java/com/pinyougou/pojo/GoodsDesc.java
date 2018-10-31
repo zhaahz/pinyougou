@@ -2,22 +2,33 @@ package com.pinyougou.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
 /**
- * GoodsDesc 实体类
- * @date 2018-10-29 21:29:21
+ * @Author ZhaJing
+ * @Description //品牌实体类
+ * @Date 15:08 2018/10/31
  * @version 1.0
- */
+ *
+ **/
+@Table(name="tb_goods_desc")
 @Data
-public class GoodsDesc implements java.io.Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class GoodsDesc implements Serializable{
+	private static final long serialVersionUID = -7405298140497362200L;
+	@Id @Column(name="goods_id")
 	private Long goodsId;
-	private String introduction;
-	private String specificationItems;
-	private String customAttributeItems;
-	private String itemImages;
-	private String packageList;
-	private String saleService;
+	@Column(name="introduction")
+    private String introduction;
+	@Column(name="specification_items")
+    private String specificationItems;
+	@Column(name="custom_attribute_items")
+    private String customAttributeItems;
+	@Column(name="item_images")
+    private String itemImages;
+	@Column(name="package_list")
+    private String packageList;
+	@Column(name="sale_service")
+    private String saleService;
 
-
-}
+ }

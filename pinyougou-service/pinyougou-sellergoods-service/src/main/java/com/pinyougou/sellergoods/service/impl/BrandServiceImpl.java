@@ -34,22 +34,22 @@ public class BrandServiceImpl implements BrandService {
 		//PageHelper.startPage(1, 10);
 		//List<Brand> list = brandMapper.findAll();
 		//使用mapper通用的方法
-		//return brandMapper.selectAll();
+		return brandMapper.selectAll();
 
 		//PageInfo<Brand> pageInfo = new PageInfo<>(list);
 		//return pageInfo.getList();
 
-		PageInfo<Brand> pageInfo = PageHelper.startPage(1, 5).doSelectPageInfo(new ISelect() {
-
-			@Override
-			public void doSelect() {
-
-				//对该查询语句进行分页
-				brandMapper.selectAll();
-			}
-		});
-
-		return pageInfo.getList();
+//		PageInfo<Brand> pageInfo = PageHelper.startPage(1, 5).doSelectPageInfo(new ISelect() {
+//
+//			@Override
+//			public void doSelect() {
+//
+//				//对该查询语句进行分页
+//				brandMapper.selectAll();
+//			}
+//		});
+//
+//		return pageInfo.getList();
 	}
 
 	@Override
@@ -61,6 +61,9 @@ public class BrandServiceImpl implements BrandService {
 
 	@Override
 	public void update(Brand brand) {
+
+		brandMapper.updateByPrimaryKeySelective(brand);
+
 
 	}
 

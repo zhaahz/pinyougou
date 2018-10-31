@@ -2,18 +2,32 @@ package com.pinyougou.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
 /**
- * Cities 实体类
- * @date 2018-10-29 21:29:21
+ * @Author ZhaJing
+ * @Description //品牌实体类
+ * @Date 15:08 2018/10/31
  * @version 1.0
- */
+ *
+ **/
+/** 城市实体 */
+@Table(name="tb_cities")
 @Data
-public class Cities implements java.io.Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class Cities implements Serializable{
+ 
+	/** 主键id */
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private Integer id;
-	private String cityid;
-	private String city;
-	private String provinceid;
-
+	/** 城市编号 */
+	@Column(name="cityid")
+    private String cityId;
+	/** 城市名称 */
+	@Column(name="city")
+    private String city;
+	/** 省份编号 */
+	@Column(name="provinceid")
+    private String provinceId;
 }

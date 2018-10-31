@@ -2,18 +2,33 @@ package com.pinyougou.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
+
 /**
- * ItemCat 实体类
- * @date 2018-10-29 21:29:21
+ * 商品类型（类目）
+ * @author LEE.SIU.WAH
+ * @email lixiaohua7@163.com
+ * @date 2017年12月19日 上午11:49:55
  * @version 1.0
  */
+@Table(name="tb_item_cat")
 @Data
-public class ItemCat implements java.io.Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class ItemCat implements Serializable{
+	private static final long serialVersionUID = -5192195713480494105L;
+	/** 主键id */
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private Long id;
-	private Long parentId;
-	private String name;
-	private Long typeId;
-
-}
+	/** 父级id */
+	@Column(name="parent_id")
+    private Long parentId;
+    /** 类型名称 */
+	@Column(name="name")
+    private String name;
+    /** 类型模版id */
+	@Column(name="type_id")
+    private Long typeId;
+    /** setter and getter method */
+ }

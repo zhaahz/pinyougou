@@ -3,6 +3,7 @@ package com.pinyougou.manager.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.Brand;
 import com.pinyougou.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sun.font.TrueTypeFont;
 
@@ -39,6 +40,24 @@ public class BrandController {
 			e.printStackTrace();
 		}
 
+		return false;
+	}
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //修改品牌
+	 * @Date 21:22 2018/10/31
+	 * @Param [Brand]
+	 * @return
+	 **/
+	@PostMapping("/update")
+	public boolean update(@RequestBody Brand brand ){
+		try {
+			brandService.update(brand);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
