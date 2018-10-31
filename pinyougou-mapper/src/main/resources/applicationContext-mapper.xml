@@ -7,6 +7,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--2.1 为什么笔记中的加载属性文件是放到service层的? -->
+    <!--答:优点:不同的服务可以连接不同的数据库,在service可以加载不同的配置文件-->
+       <!--缺点:每个服务层的的配置文件都要配置加载属性文件的代码-->
     <!--jing:加载配置文件-->
     <context:property-placeholder location="classpath*:props/*.properties"/>
 
@@ -29,8 +32,15 @@ http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframewor
         <!-- 设置 mybatis-config.xml -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!-- 设置 SQL 映射文件 -->
-        <!--jing:它这个SQL映射文件怎么写成这样?classpath:mappers/**/*.xml 我改了-->
-        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <!--2.2 笔记:它这个SQL映射文件怎么写成这样?classpath:mappers/**/*.xml -->
+        <property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
+
+        <!--10/31 笔记 设置SQL映射文件-->
+        <!--不设置原因:1.mapper.xml的包名是com.pinyougou.mapper;在经过编译后与dao接口是在同一目录下的,所以不需要注入-->
+                 <!--2.使用的注解方式配置dao层,不需要配置文件-->
+        <!--除此之外,都需要设置SQL映射文件-->
+
+
     </bean>
     <!-- 配置数据访问接口的代理对象 ( 批量配置 )
     到基础包下扫描所有的数据访问接口，再创建它们的代理对象，然后交给 Spring 容器
@@ -44,7 +54,14 @@ http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframewor
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- 配置开启事务注解驱动，由于 dubbo 用 @service 注解暴露服务，业务层需要加事
+    <!--9.1 笔记 配置开启事务注解驱动，由于 dubbo 用 @service 注解暴露服务，业务层需要加事
     务会产生代理对象，需设置 proxy-target-class 为 true 采用 cglib 产生代理 -->
+    <!--dubbox要求使用cglib代理-->
     <tx:annotation-driven proxy-target-class="true"/>
+
+    <!-- 配置通用 Mapper 集成 Spring4 -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 设置数据访问接口类 -->
+        <property name="basePackage" value="com.pinyougou.mapper"/>
+    </bean>
 </beans>

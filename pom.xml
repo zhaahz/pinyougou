@@ -7,6 +7,11 @@
     <groupId>com.pinyougou</groupId>
     <artifactId>pinyougou-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!--1.1笔记:project.arifactId就是id,在这里相当于pinyougou-->
+    <name>${project.artifactId}</name>
+
     <modules>
         <module>pinyougou-common</module>
         <module>pinyougou-pojo</module>
@@ -15,8 +20,7 @@
         <module>pinyougou-service</module>
         <module>pinyougou-web</module>
     </modules>
-    <packaging>pom</packaging>
-    <name>${project.artifactId}</name>
+
 
     <!-- 定义全局的属性(定义依赖jar包的版本号) -->
     <properties>
@@ -57,7 +61,7 @@
     </properties>
 
 
-    <!-- 依赖管理配置(用于锁定指定版本) -->
+    <!-- 依赖管理配置(用于锁定指定版本号) -->
     <dependencyManagement>
         <dependencies>
             <!-- junit -->
@@ -305,6 +309,8 @@
 
     <!-- 项目构建部分 -->
     <build>
+
+        <!--1.2笔记:插件也进行版本号管理-->
         <!-- 插件管理(用于锁定插件版本) -->
         <pluginManagement>
             <plugins>
@@ -319,6 +325,8 @@
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
+
+                <!-- 1.3笔记:配置这个表示可以使用maven自带的命令,内置tomcat运行 -->
                 <!-- 配置tomcat插件 -->
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>

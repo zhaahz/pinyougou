@@ -10,6 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pinyougou-common</artifactId>
+    <!--存放工具类的模块打包方式应该是jar 默认不写是jar-->
+    <packaging>jar</packaging>
+
 
 
 </project>

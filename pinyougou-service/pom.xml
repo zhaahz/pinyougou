@@ -31,6 +31,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <artifactId>fastjson</artifactId>
         </dependency>
         <!-- spring -->
+
+        <!--4.1 web.xml中的contextlister就在这个jar包里 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -47,9 +49,28 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <artifactId>pinyougou-mapper</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+        <!-- zookeeper 分布式协调服务 -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
+        <!-- zkclient(zookeeper 客户端 ) -->
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
+
+            <!--5.1 笔记,聚合工程:在父工程这样配置了插件后,子项目就会继承这个插件,
+              且子项目中设置port属性,可覆盖父项目中的port-->
             <!-- 配置 tomcat 插件 -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
