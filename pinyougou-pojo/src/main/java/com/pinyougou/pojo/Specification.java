@@ -30,4 +30,5 @@ public class Specification implements Serializable{
 	@Transient
     private List<SpecificationOption> specificationOptions; 
 
+	//@Transient 告诉通用mapper该属性不是表中的列名
 }

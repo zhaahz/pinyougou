@@ -1,5 +1,6 @@
 package com.pinyougou.service;
 
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.Brand;
 
 import java.io.Serializable;
@@ -29,14 +30,30 @@ public interface BrandService {
 	void delete(Serializable id);
 
 	/** 批量删除 */
+
 	void deleteAll(Serializable[] ids);
+	//序列化接口 Serializable[] 相当于 Object
+	//java中基本所有的类基本上都实现了序列化接口
 
 	/** 根据主键id查询 */
 	Brand findOne(Serializable id);
 
 
-	/** 多条件分页查询 */
-	List<Brand> findByPage(Brand brand, int page, int rows);
+	/**
+	 * @Author ZhaJing
+	 * @Description //多条件分页查询
+	 * @Date 9:16 2018/11/1
+	 * @Param brand 品牌, page 当前页, rows 页大小
+	 * @return
+	 **/
+//	PageResult findByPage(Brand brand, int page, int rows);
+
+	//? 为什么方法的参数是这个
+
+	PageInfo<Brand> findByPage(Brand brand, int page, int rows);
+
+
+
 
 
 }

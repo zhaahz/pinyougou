@@ -25,6 +25,13 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
         </dependency>
+
+        <!-- pinyougou-common -->
+        <dependency>
+            <groupId>com.pinyougou</groupId>
+            <artifactId>pinyougou-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

@@ -9,11 +9,18 @@ import com.pinyougou.pojo.Brand;
 import com.pinyougou.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
-
+/**
+ * @Author ZhaJing
+ * @Description //品牌管理类
+ * @Date 9:23 2018/11/1
+ * @version 1.0
+ **/
 @Service(interfaceName = "com.pinyougou.service.BrandService")
 @Transactional
 public class BrandServiceImpl implements BrandService {
@@ -72,8 +79,28 @@ public class BrandServiceImpl implements BrandService {
 
 	}
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //删除品牌
+	 * @Date 10:46 2018/11/1
+	 * @Param [ids]
+	 * @return
+	 **/
 	@Override
 	public void deleteAll(Serializable[] ids) {
+
+		/**这四句代码什么意思?
+		 * 通用mapper的方式来删除*/
+		Example example = new Example(Brand.class);
+
+		Example.Criteria criteria = example.createCriteria();
+
+		criteria.andIn("id", Arrays.asList(ids));
+
+		brandMapper.deleteByExample(example);
+
+		//相当于给你产生一条条件删除语句
+		//delete form tb_brand where id in(?,?);
 
 	}
 
@@ -82,8 +109,50 @@ public class BrandServiceImpl implements BrandService {
 		return null;
 	}
 
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //分页条件查询实现
+	 * @Date 9:27 2018/11/1
+	 * @Param [brand, page 当前页, rows 每页大小]
+	 * @return 分页结果实体类 (总记录数,当前页数据)
+	 **/
+//	@Override
+//	public PageResult findByPage(Brand brand, int page, int rows) {
+//
+//		try {
+//			PageInfo<Brand> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
+//				@Override
+//				public void doSelect() {
+//					brandMapper.findTiaoJian(brand);
+//				}
+//			});
+//
+//			return new PageResult(pageInfo.getTotal(),pageInfo.getList());
+//		} catch (Exception e) {
+//
+//			throw new RuntimeException(e);
+//		}
+//	}
+
+	//笔记: 直接在方法上抛出异常不妥,因为我们可以自定义service层的异常
+	//然后try..catch 可以准确知道异常的种类
+
 	@Override
-	public List<Brand> findByPage(Brand brand, int page, int rows) {
-		return null;
+	public PageInfo<Brand> findByPage(Brand brand, int page, int rows) {
+
+		try {
+			PageInfo<Brand> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
+				@Override
+				public void doSelect() {
+					brandMapper.findTiaoJian(brand);
+				}
+			});
+
+			return pageInfo;
+		} catch (Exception e) {
+
+			throw new RuntimeException(e);
+		}
 	}
 }

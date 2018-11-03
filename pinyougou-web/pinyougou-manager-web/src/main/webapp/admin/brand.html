@@ -3,17 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>品牌管理</title>
+
     <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css"/>
     <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
-	<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/plugins/angularjs/angular.min.js"></script>
+    <!-- 分页模块开始 -->
+    <link rel="stylesheet" href="/plugins/angularjs/pagination.css"/>
+    <script src="/plugins/angularjs/pagination.js"></script>
+    <!-- 分页模块结束 -->
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script src="/plugins/angularjs/angular.min.js"></script>-->
+
 
     <script type="text/javascript">
         //建立模块
-        var app = angular.module("pinyougou",[]);
+        var app = angular.module("pinyougou",["pagination"]);
         //创建控制器
         app.controller("brandController",function ($scope,$http) {
 
@@ -34,7 +41,8 @@
                 $http.post("/brand"+url,$scope.entity).then(function (response) {
 
                     if(response.data){
-                        $scope.findAll();
+                        //$scope.findAll();
+                        $scope.reload();
                     }else {
                         alert("添加失败,请重新添加!")
                     }
@@ -51,6 +59,48 @@
                 //把json转化json对象
                 $scope.entity = JSON.parse(jsonStr);
 
+            };
+
+
+            //定义分页指令需要配置的信息对象
+            $scope.paginationConf = {
+                currentPage : 1,      //当前页码
+                perPageOptions : [10,15,20], //页码下拉列表框需要数据
+                itemsPerPage : 10,       //每页显示的记录数
+                totalItems : 0,        //总记录数
+                onChange :function () {//当页码发生改变时,需要调用的函数
+
+                    $scope.reload();//重新加载
+
+                    //$scope.paginationConf.currentPage
+
+                }
+            };
+
+            $scope.reload=function () {
+
+                $scope.search($scope.paginationConf.currentPage,
+                $scope.paginationConf.itemsPerPage);
+            };
+
+
+            $scope.search=function (page,rows) {
+                $http({
+                    method:"get",
+                    url:"/brand/findByPage?page="+page+"&rows="+rows,
+                    params:$scope.searchEntity
+
+                }).then(function (response) {
+
+                    $scope.paginationConf.totalItems = response.data.total ;
+                   // $scope.dataList = response.data.rows;
+                    $scope.dataList = response.data.list;
+                });
+            };
+
+
+            $scope.delete=function () {
+
             }
         })
 
@@ -60,7 +110,7 @@
                             <!--自己本来想把ng-app写在table标签那里,看来是应该范围小了 还是一个页面就定义一个ng-app呢?-->
                             <!--ng-app 指令中定义的就是模块的名称-->
                             <!--ng-controller 指令用于为你的应用添加控制器-->
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController" ng-init="findAll();">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController" >
 	<!-- .box-body -->
 	<div class="box-header with-border">
 		<h3 class="box-title">品牌管理</h3>
@@ -74,7 +124,7 @@
 				<div class="form-group form-inline">
 					<!--<div class="btn-group">                                                                           10/31  笔记  添加完成后应重置entity值-->
 						<button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 新建</button>
-						<button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
+						<button type="button" class="btn btn-default" title="删除"  ng-click="delete()"><i class="fa fa-trash-o"></i> 删除</button>
 						<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 					</div>
 				</div>
@@ -84,12 +134,12 @@
 					<!--  查询条件区-->
 					<table>
 						<tr>
-							<td><input class="form-control" placeholder="品牌名称">
+							<td><input class="form-control" placeholder="品牌名称" ng-model="searchEntity.name">
 							</td>
-							<td><input class="form-control" placeholder="首字母">
+							<td><input class="form-control" placeholder="首字母" ng-model="searchEntity.firstChar">
 							</td>
 							<td>
-								<button type="button" class="btn btn-default">
+								<button type="button" class="btn btn-default" ng-click="reload()">
 									<i class="fa fa-trash-o"></i> 查询
 								</button>
 							</td>
@@ -103,6 +153,12 @@
 				<thead>
 					<tr>
 						<th class="" style="padding-right:0px">
+
+                            <!-- 11/1 笔记 这个$event表示什么?-->
+                            <!--$event是angularJS的事件对象,作用:-->
+                            <!--$event.target:获取checkbox对应的dom元素-->
+                            <!--用来判断checkbox是否选中-->
+
 							<input id="selall" type="checkbox" class="icheckbox_square-blue">
 						</th> 
 						<th class="sorting_asc">品牌ID</th>
@@ -141,7 +197,12 @@
 					<!--</tr>-->
 				</tbody>
 			 </table>
-			 <!--数据列表/-->                        
+			 <!--数据列表/-->
+        <!-- 分页指令 -->
+        <tm-pagination conf="paginationConf"/>
+
+
+
 		</div>
 		<!-- 数据表格 /-->
 	 </div>

@@ -58,6 +58,7 @@
         <fastdfs.version>1.25-RELEASE</fastdfs.version>
         <httpclient.version>4.5.3</httpclient.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <lombok.version>1.16.18</lombok.version>
     </properties>
 
 
@@ -303,6 +304,12 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

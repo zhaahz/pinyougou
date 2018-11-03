@@ -13,6 +13,13 @@
     <!--存放工具类的模块打包方式应该是jar 默认不写是jar-->
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+    </dependencies>
 
 
 </project>

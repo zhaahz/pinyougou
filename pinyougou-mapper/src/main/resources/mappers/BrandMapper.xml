@@ -4,4 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pinyougou.mapper.BrandMapper">
+    <select id="findTiaoJian"  resultType="brand">
+        SELECT * from tb_brand
+        <where>
+        <if test="name != '' and name != null " >
+             name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="firstChar != '' and firstChar != null " >
+            AND first_char = #{firstChar}
+        </if>
+        </where>
+        ORDER BY id ASC
+    </select>
 </mapper>
