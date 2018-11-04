@@ -98,8 +98,41 @@
                 });
             };
 
+            // （1）数组的push方法：向数组中添加元素
+            // （2）数组的splice方法：从数组的指定位置移除指定个数的元素 ，参数1为位置 ，参数2为移除的个数
+            // （3）复选框的checked属性：用于判断是否被选中
 
+
+            //定义一个ids数组
+            $scope.ids = [];
+
+            //为复选框绑定点击事件
+            $scope.updateSelection=function ($event,id) {
+
+                //点击选中,添加到数组
+                if($event.target.checked){
+                    $scope.ids.push(id);
+                }else {
+                    //没被选中,从数组中移除(防止点击又取消操作)
+                    var idx = $scope.ids.indexOf(id);
+                    $scope.ids.splice(idx,1);
+                }
+            };
+
+            //删除操作
             $scope.delete=function () {
+                if($scope.ids.length>0){
+                    $http({
+                        url:"/brand/delete?ids="+$scope.ids,
+                        method:"get"
+                    }).then(function (response) {
+                        if(response.data){
+                            $scope.reload();
+                        }
+                    });
+                }else {
+                    alert("请选择要删除的品牌!");
+                }
 
             }
         })
@@ -124,7 +157,7 @@
 				<div class="form-group form-inline">
 					<!--<div class="btn-group">                                                                           10/31  笔记  添加完成后应重置entity值-->
 						<button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 新建</button>
-						<button type="button" class="btn btn-default" title="删除"  ng-click="delete()"><i class="fa fa-trash-o"></i> 删除</button>
+						<button type="button" class="btn btn-default" title="删除"  ng-click="delete();"><i class="fa fa-trash-o"></i> 删除</button>
 						<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 					</div>
 				</div>
@@ -169,7 +202,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="entity in dataList">
-						<td><input  type="checkbox" ></td>			                              
+						<td><input  type="checkbox" ng-click="updateSelection($event,entity.id);"></td>
 						<td>{{entity.id}}</td>
 						<td>{{entity.name}}</td>
 						<td>{{entity.firstChar}}</td>

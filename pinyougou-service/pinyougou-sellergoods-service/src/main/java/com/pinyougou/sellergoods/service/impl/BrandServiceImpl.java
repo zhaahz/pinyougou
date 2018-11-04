@@ -91,12 +91,16 @@ public class BrandServiceImpl implements BrandService {
 
 		/**这四句代码什么意思?
 		 * 通用mapper的方式来删除*/
+		//创建示范对象
 		Example example = new Example(Brand.class);
 
+		//创建条件对象
 		Example.Criteria criteria = example.createCriteria();
 
+		//添加in条件
 		criteria.andIn("id", Arrays.asList(ids));
 
+		//根据条件删除
 		brandMapper.deleteByExample(example);
 
 		//相当于给你产生一条条件删除语句
