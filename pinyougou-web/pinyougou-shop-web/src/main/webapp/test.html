@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+$scope.saveOrUpdate = function(){
+var url = "save";
+if ($scope.entity.id){
+url = "update";
+}
+/** 发送post请求 */
+baseService.sendPost("/seller/" + url, $scope.entity)
+.then(function(response){
+if (response.data){
+/** 重新加载数据 */
+$scope.reload();
+}else{
+alert("操作失败！");
+}
+});
+};
