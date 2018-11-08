@@ -5,9 +5,10 @@ import com.pinyougou.pojo.Brand;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
- * BrandService 服务接口
+ * BrandService TODO 品牌管理服务接口实现类
  * @date 2018-10-30 10:59:15
  * @version 1.0
  */
@@ -51,6 +52,15 @@ public interface BrandService {
 	//? 为什么方法的参数是这个
 
 	PageInfo<Brand> findByPage(Brand brand, int page, int rows);
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查询全部品牌(id与name)
+	 * @Date 9:06 2018/11/8
+	 * @Param []
+	 * @return
+	 **/
+	List<Map<String,Object>> findAllByIdAndName();
 
 
 

@@ -1,8 +1,13 @@
 package com.pinyougou.service;
 
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.Specification;
+import com.pinyougou.pojo.SpecificationOption;
+
 import java.util.List;
 import java.io.Serializable;
+import java.util.Map;
+
 /**
  * SpecificationService 服务接口
  * @date 2018-10-30 10:59:16
@@ -29,6 +34,25 @@ public interface SpecificationService {
 	List<Specification> findAll();
 
 	/** 多条件分页查询 */
-	List<Specification> findByPage(Specification specification, int page, int rows);
+	//List<Specification> findByPage(Specification specification, int page, int rows);
+	PageInfo<Specification> findByPage(Specification specification, int page, int rows);
 
+	
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO  查询全部规格(id与specName)
+	 * @Date 10:10 2018/11/8
+	 * @Param []
+	 * @return 
+	 **/
+	List<Map<String, Object>> findAllByIdAndName();
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 根据规格id查询规格选项
+	 * @Date 20:42 2018/11/7
+	 * @Param
+	 * @return
+	 **/
+	List<SpecificationOption> findSpecOption(Long id);
 }

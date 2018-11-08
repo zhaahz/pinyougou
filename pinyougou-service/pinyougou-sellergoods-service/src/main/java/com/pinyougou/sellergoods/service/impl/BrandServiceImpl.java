@@ -15,9 +15,11 @@ import tk.mybatis.mapper.entity.Example;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @Author ZhaJing
- * @Description //品牌管理类
+ * @Description TODO 品牌管理
  * @Date 9:23 2018/11/1
  * @version 1.0
  **/
@@ -28,9 +30,12 @@ public class BrandServiceImpl implements BrandService {
 	private BrandMapper brandMapper;
 
 	/**
-	 * 分页查询全部品牌
+	 * @Author ZhaJing
+	 * @Description //TODO 查询所有品牌
+	 * @Date 13:23 2018/11/7
+	 * @Param []
 	 * @return
-	 */
+	 **/
 	@Override
 	public List<Brand> findAll() {
 
@@ -59,17 +64,39 @@ public class BrandServiceImpl implements BrandService {
 //		return pageInfo.getList();
 	}
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 添加品牌
+	 * @Date 23:47 2018/11/6
+	 * @Param [brand]
+	 * @return
+	 **/
 	@Override
 	public void save(Brand brand) {
 
-		//笔记 10/30 我看此处有两个insert方法,为什么不选择用另一个
-		brandMapper.insertSelective(brand);
+		try {
+			//笔记 10/30 我看此处有两个insert方法,为什么不选择用另一个
+			brandMapper.insertSelective(brand);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 修改品牌
+	 * @Date 23:47 2018/11/6
+	 * @Param [brand]
+	 * @return
+	 **/
 	@Override
 	public void update(Brand brand) {
 
-		brandMapper.updateByPrimaryKeySelective(brand);
+		try {
+			brandMapper.updateByPrimaryKeySelective(brand);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
 
 	}
@@ -93,10 +120,8 @@ public class BrandServiceImpl implements BrandService {
 		 * 通用mapper的方式来删除*/
 		//创建示范对象
 		Example example = new Example(Brand.class);
-
 		//创建条件对象
 		Example.Criteria criteria = example.createCriteria();
-
 		//添加in条件
 		criteria.andIn("id", Arrays.asList(ids));
 
@@ -156,6 +181,26 @@ public class BrandServiceImpl implements BrandService {
 			return pageInfo;
 		} catch (Exception e) {
 
+			throw new RuntimeException(e);
+		}
+	}
+
+
+
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查询name和id(下拉列表)
+	 * @Date 9:29 2018/11/8
+	 * @Param []
+	 * @return 
+	 **/
+	@Override
+	public List<Map<String, Object>> findAllByIdAndName() {
+
+		try {
+			return brandMapper.findAllByIdAndName();
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

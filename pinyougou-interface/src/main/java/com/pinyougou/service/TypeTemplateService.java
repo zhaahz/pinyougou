@@ -1,8 +1,11 @@
 package com.pinyougou.service;
 
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TypeTemplate;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Map;
+
 /**
  * TypeTemplateService 服务接口
  * @date 2018-10-30 10:59:16
@@ -29,6 +32,11 @@ public interface TypeTemplateService {
 	List<TypeTemplate> findAll();
 
 	/** 多条件分页查询 */
-	List<TypeTemplate> findByPage(TypeTemplate typeTemplate, int page, int rows);
+	//List<TypeTemplate> findByPage(TypeTemplate typeTemplate, int page, int rows);
+	PageInfo<TypeTemplate> findByPage(TypeTemplate typeTemplate, int page, int rows);
 
+
+	List<Map> findSpecByTemplateId(Long id);
+
+	List<TypeTemplate> findIdAndName();
 }

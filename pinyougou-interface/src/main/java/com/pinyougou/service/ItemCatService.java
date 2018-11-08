@@ -9,6 +9,14 @@ import java.io.Serializable;
  * @version 1.0
  */
 public interface ItemCatService {
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 根据parentId查询
+	 * @Date 11:32 2018/11/8
+	 * @Param [parentId]
+	 * @return
+	 **/
+	List<ItemCat> findItemCatByParentId(Long parentId);
 
 	/** 添加方法 */
 	void save(ItemCat itemCat);

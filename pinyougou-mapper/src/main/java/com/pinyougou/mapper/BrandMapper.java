@@ -6,6 +6,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author ZhaJing
@@ -33,4 +34,19 @@ public interface BrandMapper extends Mapper<Brand> {
 	 * @return
 	 **/
 	List<Brand> findTiaoJian(Brand brand);
+
+
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO  查询全部品牌(id与name)
+	 * @Date 9:42 2018/11/8
+	 * @Param []
+	 * @return
+	 **/
+	@Select("select id, name as text from tb_brand order by id asc")
+	List<Map<String,Object>> findAllByIdAndName();
+
+	//使用别名的方式
 }
+

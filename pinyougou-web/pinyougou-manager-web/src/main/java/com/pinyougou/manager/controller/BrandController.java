@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/brand")
@@ -18,14 +19,13 @@ public class BrandController {
 
 	/**
 	 * @Author ZhaJing
-	 * @Description //TODO 
+	 * @Description //TODO 查询所有品牌
 	 * @Date 15:08 2018/10/31
 	 * @Param []
 	 * @return 
 	 **/
 	@GetMapping("/findAll")
 	public List<Brand> findAll(){
-
 		return brandService.findAll();
 	}
 
@@ -136,6 +136,19 @@ public class BrandController {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查询品牌的id和name(用于下拉列表)
+	 * @Date 8:59 2018/11/8
+	 * @Param []
+	 * @return 
+	 **/
+	@GetMapping("/findBrandList")
+	public List<Map<String,Object>> findBrandList(){
+		return brandService.findAllByIdAndName();
 	}
 
 }
