@@ -58,4 +58,25 @@ app.controller('contentController', function($scope, $controller, baseService){
             alert("请选择要删除的记录！");
         }
     };
+
+    /** 定义文件上传方法 */
+    $scope.uploadFile = function(){
+        baseService.uploadFile().then(function(response) {
+            /** 如果上传成功，取出 url */
+            if(response.data.status == 200){
+                /** 设置图片访问地址 */
+                $scope.entity.pic = response.data.url;
+            }else{
+                alert(" 上传失败！");
+            }
+        });
+    };
+
+    /**查询广告模板*/
+    $scope.findContentCategory = function () {
+        baseService.sendGet("/contentCategory/findAll")
+            .then(function (response) {
+              $scope.contentCategoryList =   response.data;
+            });
+    }
 });
