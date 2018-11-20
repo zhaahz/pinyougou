@@ -76,7 +76,10 @@ app.controller('contentController', function($scope, $controller, baseService){
     $scope.findContentCategory = function () {
         baseService.sendGet("/contentCategory/findAll")
             .then(function (response) {
-              $scope.contentCategoryList =   response.data;
+              $scope.contentCategoryList = response.data;
             });
-    }
+    };
+
+
+    $scope.status = ["无效","有效"];
 });

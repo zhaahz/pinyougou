@@ -26,17 +26,21 @@ public class UserDetialsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		/** 创建List集合封装角色 */
-		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
-		/** 添加角色 */
-		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_SELLER"));
 
 		/** 根据登录名查询商家 */
 		Seller seller = sellerService.findOne(username);
 
 		/** 判断商家是否为空 并且 商家已审核 */
-		if (seller != null && seller.getStatus().equals("1")){
+		if (seller != null && "1".equals(seller.getStatus())){
+			/** 创建List集合封装角色 */
+			List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+			/** 添加角色 */
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_SELLER"));
+			System.out.println(seller.getSellerId());
+			System.out.println(seller.getPassword());
+			System.out.println(grantedAuthorities);
 			/** 返回用户信息对象 */
 			return new User(username, seller.getPassword(), grantedAuthorities);
 		}

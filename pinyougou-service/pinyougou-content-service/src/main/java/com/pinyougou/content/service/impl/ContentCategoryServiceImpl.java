@@ -15,10 +15,11 @@ import tk.mybatis.mapper.entity.Example;
 import java.io.Serializable;
 import java.util.Arrays;
 /**
- * ContentCategoryServiceImpl 服务接口实现类
- * @date 2018-10-30 10:59:15
+ * @Author ZhaJing
+ * @Description //TODO 服务接口实现类
+ * @Date 11:16 2018/11/9
  * @version 1.0
- */
+ **/
 @Service(interfaceName = "com.pinyougou.service.ContentCategoryService" )
 @Transactional
 public class ContentCategoryServiceImpl implements ContentCategoryService {
@@ -26,7 +27,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 	@Autowired
 	private ContentCategoryMapper contentCategoryMapper;
 
-	/** 添加方法 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 添加广告分类
+	 * @Date 11:17 2018/11/9
+	 * @Param [contentCategory]
+	 * @return 
+	 **/
 	@Override
 	public void save(ContentCategory contentCategory){
 		try {
@@ -36,7 +43,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 修改方法 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 修改方法 
+	 * @Date 11:17 2018/11/9
+	 * @Param [contentCategory]
+	 * @return 
+	 **/
 	@Override
 	public void update(ContentCategory contentCategory){
 		try {
@@ -46,7 +59,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 根据主键id删除 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 根据主键id删除 
+	 * @Date 11:17 2018/11/9
+	 * @Param [id]
+	 * @return 
+	 **/
 	@Override
 	public void delete(Serializable id){
 		try {
@@ -56,7 +75,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 批量删除 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 批量删除
+	 * @Date 11:17 2018/11/9
+	 * @Param [ids]
+	 * @return 
+	 **/
 	@Override
 	public void deleteAll(Serializable[] ids){
 		try {
@@ -73,7 +98,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 根据主键id查询 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO  根据主键id查询
+	 * @Date 11:17 2018/11/9
+	 * @Param [id]
+	 * @return 
+	 **/
 	@Override
 	public ContentCategory findOne(Serializable id){
 		try {
@@ -83,7 +114,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 查询全部 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查询全部 
+	 * @Date 11:17 2018/11/9
+	 * @Param []
+	 * @return 
+	 **/
 	@Override
 	public List<ContentCategory> findAll(){
 		try {
@@ -93,7 +130,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		}
 	}
 
-	/** 多条件分页查询 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 多条件分页查询
+	 * @Date 11:18 2018/11/9
+	 * @Param [contentCategory, page, rows]
+	 * @return 
+	 **/
 	@Override
 	public PageResult findByPage(ContentCategory contentCategory, int page, int rows){
 		try {

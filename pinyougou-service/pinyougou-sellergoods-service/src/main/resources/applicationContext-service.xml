@@ -11,7 +11,7 @@ http://code.alibabatech.com/schema/dubbo
 http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
      <!--配置加载属性文件-->
     <context:property-placeholder
-            location="classpath:props/*.properties"/>
+            location="classpath*:props/*.properties"/>
 
     <!--6.1 导入mapper层的applicationContext-mybatis.xml文件;把applicationContext-mybatis.xml
     放到mapper层去写,是因为服务如果在服务层写的话,每个服务都要写一个applicationContext-mybatis.xml-->

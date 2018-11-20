@@ -13,12 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 文件上传控制器 TODO 都是copy的
- *
- * @author lee.siu.wah
+ * @Author ZhaJing
+ * @Description //TODO 文件上传控制器
+ * @Date 17:27 2018/11/10
  * @version 1.0
- * <p>File Created at 2018-11-06<p>
- */
+ **/
 @RestController
 public class UploadController {
 
@@ -33,13 +32,14 @@ public class UploadController {
         Map<String, Object> data = new HashMap<>();
         data.put("status", 500);
         try{
-            // 获取上传文件的名称
+            /**1. 获取上传文件的名称*/
             String filename = multipartFile.getOriginalFilename();
-            // 获取上传文件的字节数组
+
+            /**2. 获取上传文件的字节数组*/
             byte[] bytes = multipartFile.getBytes();
 
-            /** ############## 上传文件到FastDFS文件服务器 ############## */
-            // 获取fastdfs-client.conf配置文件
+            /**3. ############## 上传文件到FastDFS文件服务器 ############## */
+            // 加载fastdfs-client.conf配置文件
             String confFilename = this.getClass().getResource("/fastdfs-client.conf").getPath();
             // 初始化客户端全局对象
             ClientGlobal.init(confFilename);

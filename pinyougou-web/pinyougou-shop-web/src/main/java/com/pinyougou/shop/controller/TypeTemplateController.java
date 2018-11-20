@@ -23,12 +23,16 @@ public class TypeTemplateController {
 	@Reference(timeout = 10000)
 	private TypeTemplateService typeTemplateService;
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查找品牌
+	 * @Date 20:18 2018/11/13
+	 * @Param [id]
+	 * @return 
+	 **/
 	@GetMapping("/findOne")
-	public Map<String,Object> findOne(Integer id){
-		Map<String,Object> map = new HashMap<>();
-		TypeTemplate one = typeTemplateService.findOne(id);
-		map.put("brandIds",one);
-		return map;
+	public TypeTemplate findOne(Long id){
+		return typeTemplateService.findOne(id);
 	}
 
 	/**

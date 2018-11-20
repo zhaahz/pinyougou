@@ -1,8 +1,40 @@
 /** 定义控制器层 */
-app.controller('goodsController', function($scope, $controller, baseService){
+app.controller('goodsController', function($scope, $controller, baseService,$http){
 
     /** 指定继承baseController */
     $controller('baseController',{$scope:$scope});
+
+
+    /** 分页查询(带查询条件或不带查询条件) */
+    // this.findByPage = function(url, page, rows, data){
+    //     /** 定义分页URL */
+    //     url += '?page='+ page +'&rows=' + rows;
+    //     if (data && JSON.stringify(data) != "{}"){
+    //         return $http({
+    //             method : 'get',
+    //             url : url,
+    //             params : data
+    //         });
+    //     }else{
+    //         return this.sendGet(url);
+    //     }
+    // };
+
+    /** 定义搜索对象 */
+    $scope.searchEntity = {};
+
+    $scope.search = function (page,rows) {
+      baseService.findByPage("/goods/findByPage",page,rows,$scope.searchEntity)
+          .then(function (response) {
+
+                  $scope.paginationConf.totalItems = response.data.total;
+                  $scope.dataList = response.data.rows;
+
+          });
+    };
+
+    //定义状态数组
+    $scope.status = ['未审核','已审核','审核未通过','关闭'];
 
     /** 添加或修改 */
     $scope.saveOrUpdate = function(){
@@ -24,14 +56,17 @@ app.controller('goodsController', function($scope, $controller, baseService){
     };
 
 
+
+
     /**查詢一級商品分類*/
     $scope.findItemCatByParentId = function (parentId,name) {
         baseService.sendGet("/itemCat/findItemCatByParentId",
             "parentId="+parentId).then(function (response) {
-                $scope[name] = response.data;
+                $scope[name] = response.data.itemCatList;
         });
 
     };
+
 
     //有关于angularJS中的数组
     //如 $scope[name] push方法 put等等
@@ -58,7 +93,7 @@ app.controller('goodsController', function($scope, $controller, baseService){
 
 
 
-    //老师
+
     // 定义数据存储格式
     $scope.goods = {goodsDesc : { itemImages : []}};
 
@@ -89,7 +124,7 @@ app.controller('goodsController', function($scope, $controller, baseService){
         $scope.goods.goodsDesc.itemImages.splice(idx, 1);
     };
 
-    //老师
+
     // 监听"goods.category3Id"三级分类变量发生改变，查找类型模板id
     $scope.$watch("goods.category3Id", function (newVal, oldVal) {
         if (newVal){ // 判断newVal不是undefined、null
@@ -222,19 +257,57 @@ app.controller('goodsController', function($scope, $controller, baseService){
     };
 
     /** 批量删除 */
-    $scope.delete = function(){
-        if ($scope.ids.length > 0){
-            baseService.deleteById("/goods/delete", $scope.ids)
-                .then(function(response){
-                    if (response.data){
+    // $scope.delete = function(){
+    //     if ($scope.ids.length > 0){
+    //         baseService.deleteById("/goods/delete", $scope.ids)
+    //             .then(function(response){
+    //                 if (response.data){
+    //                     /** 重新加载数据 */
+    //                     $scope.reload();
+    //                 }else{
+    //                     alert("删除失败！");
+    //                 }
+    //             });
+    //     }else{
+    //         alert("请选择要删除的记录！");
+    //     }
+    // };
+
+    //逻辑删除商品(让isDelete为1)
+
+    $scope.delete = function (isDelete) {
+
+        if($scope.ids.length > 0){
+            baseService.sendGet("/goods/updateIsDelete?isDelete="+isDelete+"&ids="+$scope.ids)
+                .then(function (response) {
+                    if(response.data){
                         /** 重新加载数据 */
                         $scope.reload();
-                    }else{
-                        alert("删除失败！");
+                    }else {
+                        alert("删除失败!");
                     }
                 });
-        }else{
-            alert("请选择要删除的记录！");
+        }else {
+            alert("请选择您要删除的商品!")
         }
     };
+
+    //商品的上架与下架
+    $scope.updateIsMarketable = function (isMarketable) {
+        if($scope.ids.length>0){
+            baseService.sendPost("/goods/updateIsMarketable?isMarketable="+isMarketable,$scope.ids)
+                .then(function (response) {
+                    if(response.data){
+                        $scope.reload();
+                    }else {
+                        alert("操作失败");
+                    }
+                });
+        }else {
+            alert("请选择您要操作的商品!");
+        }
+    }
+
+
+
 });

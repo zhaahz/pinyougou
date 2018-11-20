@@ -32,4 +32,12 @@ public interface ContentService {
 	/** 多条件分页查询 */
 	PageResult findByPage(Content content, int page, int rows);
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 根据categoryId查询content
+	 * @Date 15:10 2018/11/9
+	 * @Param [id]
+	 * @return
+	 **/
+	List<Content> findContentByCategoryId(Long categoryId);
 }

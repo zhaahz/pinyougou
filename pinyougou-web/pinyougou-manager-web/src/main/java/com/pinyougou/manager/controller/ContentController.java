@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @Author: ZhaJing
  * @Date: Created in 2018/11/8 23:34
- * @Description: // TODO
+ * @Description: // TODO contentController控制器类
  * @Version: 1.0
  */
 @RestController
@@ -22,13 +22,26 @@ public class ContentController {
 	@Reference(timeout = 10000)
 	private ContentService contentService;
 
-	/** 查询全部方法 */
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 查询全部方法
+	 * @Date 11:19 2018/11/9
+	 * @Param []
+	 * @return 
+	 **/
 	@GetMapping("/findAll")
 	public List<Content> findAll() {
 		return contentService.findAll();
 	}
 
-	/** 多条件分页查询方法 */
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 多条件分页查询方法
+	 * @Date 11:19 2018/11/9
+	 * @Param [content, page, rows]
+	 * @return 
+	 **/
 	@GetMapping("/findByPage")
 	public PageResult findByPage(Content content,
 								 Integer page, Integer rows) {
@@ -40,7 +53,14 @@ public class ContentController {
 		return null;
 	}
 
-	/** 根据主键id查询方法 */
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 根据主键id查询方法
+	 * @Date 11:19 2018/11/9
+	 * @Param [id]
+	 * @return 
+	 **/
 	@GetMapping("/findOne")
 	public Content findOne(Long id) {
 		try {
@@ -51,7 +71,14 @@ public class ContentController {
 		return null;
 	}
 
-	/** 添加方法 */
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 添加方法
+	 * @Date 11:19 2018/11/9
+	 * @Param [content]
+	 * @return 
+	 **/
 	@PostMapping("/save")
 	public boolean save(@RequestBody Content content) {
 		try {
@@ -63,7 +90,14 @@ public class ContentController {
 		return false;
 	}
 
-	/** 修改方法 */
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 修改方法
+	 * @Date 11:19 2018/11/9
+	 * @Param [content]
+	 * @return 
+	 **/
 	@PostMapping("/update")
 	public boolean update(@RequestBody Content content) {
 		try {
@@ -75,7 +109,14 @@ public class ContentController {
 		return false;
 	}
 
-	/** 删除方法 */
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 删除方法
+	 * @Date 11:20 2018/11/9
+	 * @Param [ids]
+	 * @return 
+	 **/
 	@GetMapping("/delete")
 	public boolean delete(Long[] ids) {
 		try {

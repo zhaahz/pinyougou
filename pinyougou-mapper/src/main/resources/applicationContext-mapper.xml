@@ -11,7 +11,7 @@ http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframewor
     <!--答:优点:不同的服务可以连接不同的数据库,在service可以加载不同的配置文件-->
        <!--缺点:每个服务层的的配置文件都要配置加载属性文件的代码-->
     <!--jing:加载配置文件-->
-    <context:property-placeholder location="classpath*:props/*.properties"/>
+    <context:property-placeholder location="classpath*:props/*.properties" />
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"

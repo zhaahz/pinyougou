@@ -58,14 +58,14 @@
 											<td>
                                                 <select class="form-control"
                                                 ng-model="goods.category1Id"
-                                                ng-options="i.id as i.name for i in itemCatList">
+                                                ng-options="i.id as i.name for i in itemCatList1">
                                                     <option value="">==请选择一级分类==</option>
                                                 </select>
                                             </td>
 											<td>
                                                 <select class="form-control select-sm"
                                                 ng-model="goods.category2Id"
-                                                ng-options="i.id as i.name for i in itemCatList">
+                                                ng-options="i.id as i.name for i in itemCatList2">
                                                     <option value="">==请选择二级分类==</option>
                                                 </select>
                                             </td>
@@ -90,14 +90,18 @@
 	
 								<div class="col-md-2 title">品牌</div>
 								<div class="col-md-10 data">
-									<select class="form-control"></select>
+                                    <select class="form-control"
+                                            ng-model="goods.brandId"
+                                            ng-options="b.id as b.text for b in brandIds">
+                                        <option value="">==请选择品牌==</option>
+                                    </select>
 								</div>
 	
 								<div class="col-md-2 title">副标题</div>
 								<div class="col-md-10 data">
 									<input type="text" class="form-control"
                                            ng-model="goods.caption"placeholder="副标题" />
-								</div>
+								</div>{{goods.caption}}
 	
 								<div class="col-md-2 title">价格</div>
 								<div class="col-md-10 data">
@@ -105,7 +109,7 @@
 										<span class="input-group-addon">¥</span> <input type="text"
                                                 ng-model="goods.price"
                                              class="form-control" placeholder="价格" >
-									</div>
+									</div>{{goods.price}}
 								</div>
 	
 								<div class="col-md-2 title editer">商品介绍</div>
@@ -119,13 +123,13 @@
 	
 									<textarea rows="4" class="form-control"
                                               ng-model="goods.goodsDesc.packageList" placeholder="包装列表"></textarea>
-								</div>
+								</div>{{goods.goodsDesc.packageList}}
 	
 								<div class="col-md-2 title rowHeight2x">售后服务</div>
 								<div class="col-md-10 data rowHeight2x">
 									<textarea rows="4" class="form-control"
                                               ng-model="goods.goodsDesc.saleService"placeholder="售后服务"></textarea>
-								</div>
+								</div>{{goods.goodsDesc.saleService}}
 							
 							</div>
 						</div>
@@ -152,7 +156,7 @@
 											<th class="sorting">图片</th>
 											<th class="sorting">操作</th>
 									</thead>
-                                    <!--老师-->
+
                                     <tbody>
                                     <tr ng-repeat="item in goods.goodsDesc.itemImages">
                                         <td>{{item.color}}</td>
@@ -172,7 +176,7 @@
 						</div>
 
 
-                        <!--老师-->
+
                         <!--扩展属性-->
                         <div class="tab-pane" id="customAttribute">
                             <div class="row data-type">
@@ -337,7 +341,6 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-success" data-dismiss="modal"
-                                <!--老师-->
                                 ng-click="addPic()"
 							aria-hidden="true">保存</button>
 						<button class="btn btn-default" data-dismiss="modal"
