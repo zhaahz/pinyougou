@@ -33,8 +33,13 @@ public class SmsController {
 					   String templateCode,
 					   String templateParam){
 		Map<String,Object> map = new HashMap<>();
-		boolean success = smsService.sendSms(phone,signName,templateCode,templateParam);
-		map.put("success",success);
+		try {
+			boolean success = smsService.sendSms(phone,signName,templateCode,templateParam);
+			System.out.println("短信发送成功:"+success);
+			map.put("success",success);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return map;
 	}
 }

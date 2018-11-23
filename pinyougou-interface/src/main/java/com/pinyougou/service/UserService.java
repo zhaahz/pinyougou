@@ -31,4 +31,21 @@ public interface UserService {
 	/** 多条件分页查询 */
 	List<User> findByPage(User user, int page, int rows);
 
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 发送短信验证码
+	 * @Date 21:33 2018/11/20
+	 * @Param [phone]
+	 * @return 
+	 **/
+	boolean sendCode(String phone);
+
+	/**
+	 * @Author ZhaJing
+	 * @Description //TODO 检查短信验证码是否正确
+	 * @Date 11:02 2018/11/21
+	 * @Param [phone, smsCode]
+	 * @return 
+	 **/
+	boolean checkSmsCode(String phone, String smsCode);
 }
